@@ -2,8 +2,10 @@ package io.daocloud.shop.product.controller;
 
 import io.daocloud.shop.product.entity.ProductEntity;
 import io.daocloud.shop.product.repository.ProductRepository;
+import io.daocloud.shop.product.service.OrderService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -19,9 +21,12 @@ import java.util.List;
 public class ProductController {
 
     private final ProductRepository productRepository;
+    private final OrderService orderService;
 
-    public ProductController(ProductRepository productRepository) {
+    public ProductController(ProductRepository productRepository,
+                             @SuppressWarnings("all")OrderService orderService) {
         this.productRepository = productRepository;
+        this.orderService = orderService;
     }
 
     @GetMapping("/products")
@@ -35,7 +40,20 @@ public class ProductController {
                 .orElseThrow(()->new RuntimeException("no such product"));
     }
     @PostMapping("/products/buy")
+    @Transactional
     public void buProduct(@RequestBody List<OrderVo> orderVoList){
+        orderVoList.forEach(orderVo->{
+            ProductEntity productEntity = productRepository.findById(orderVo.getProductId()).get();
+            orderVo.setPrice(productEntity.getPrice());
+            orderVo.setProductName(productEntity.getName());
+            updateProductCount(orderVo.getCount(),productEntity);
+        });
+        orderService.createOrder(orderVoList);
+    }
 
+    private synchronized void  updateProductCount(int count,ProductEntity productEntity){
+        productEntity.setStock(productEntity.getStock()-count);
+        productEntity.setSales(productEntity.getSales()+count);
+        productRepository.save(productEntity);
     }
 }

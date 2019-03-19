@@ -19,6 +19,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class OrderVo {
-    private long id;
+
     private int count;
+    private double price;
+    private long productId;
+    private String productName;
 }
