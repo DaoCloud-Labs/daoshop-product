@@ -1,4 +1,4 @@
-package io.daocloud.shop.product;
+package io.daocloud.shop.product.controller;
 
 import io.daocloud.shop.product.entity.ProductEntity;
 import io.daocloud.shop.product.repository.ProductRepository;
