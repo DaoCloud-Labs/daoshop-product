@@ -34,9 +34,8 @@ public class ProductController {
         return productRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("no such product"));
     }
-    @PostMapping("/products/{id}/buy")
-    public void buProduct(@PathVariable("id") long id,
-                          @RequestParam("count")int count){
+    @PostMapping("/products/buy")
+    public void buProduct(){
 
     }
 }
