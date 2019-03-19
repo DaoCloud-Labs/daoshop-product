@@ -1,6 +1,6 @@
 insert into t_product (c_name,c_desc,price,c_type,stock,sales,image)
 values ('DaoCloud Micro Service Platform','DaoCloud Micro Service Platform','9999999','1','1','9999',
-'https://www.daocloud.io/static/dmp/dmp-02.png');
+'https://qiniu-download-public.daocloud.io/DaoCloud_MicroServices_Platform/dmp_logo.svg');
 
 insert into t_product (c_name,c_desc,price,c_type,stock,sales,image)
 values ('Beats EP头戴式耳机','Beats EP头戴式耳机','558','4','123','132',
