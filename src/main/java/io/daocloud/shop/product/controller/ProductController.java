@@ -35,7 +35,7 @@ public class ProductController {
                 .orElseThrow(()->new RuntimeException("no such product"));
     }
     @PostMapping("/products/buy")
-    public void buProduct(){
+    public void buProduct(@RequestBody List<OrderVo> orderVoList){
 
     }
 }
