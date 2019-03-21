@@ -5,6 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -24,5 +25,5 @@ import java.util.List;
 public interface OrderService {
 
     @PostMapping("/orders")
-    public void createOrder(@RequestBody List<OrderVo> orderVolist);
+    public void createOrder(@RequestBody List<OrderVo> orderVolist, @RequestHeader long token);
 }
