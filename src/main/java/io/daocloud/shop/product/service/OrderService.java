@@ -25,5 +25,5 @@ import java.util.List;
 public interface OrderService {
 
     @PostMapping("/orders")
-    public void createOrder(@RequestBody List<OrderVo> orderVolist, @RequestHeader long token);
+    public void createOrder(@RequestBody List<OrderVo> orderVolist, @RequestHeader("token") long token);
 }
