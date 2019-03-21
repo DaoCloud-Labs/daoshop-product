@@ -3,13 +3,21 @@ FROM openjdk:8-jre-alpine
 LABEL maintainer="jian.tan@daocloud.io"
 
 ENV DIST_NAME=product \
-    APP_VERSION=0.0.1-SNAPSHOT
+    APP_VERSION=0.0.1-SNAPSHOT \
+    AGENT_REPO_URL="http://nexus.mschina.io/nexus/content/repositories/labs/org/apache/skywalking/dmp/agent/2.0.0/agent-2.0.0.gz"
+
+ADD $AGENT_REPO_URL /
 
 COPY target/"$DIST_NAME-$APP_VERSION.jar" /"$DIST_NAME.jar"
+
+RUN set -ex; \
+    tar -zxf /agent-2.0.0.gz; \
+    rm -rf agent-2.0.0.gz;
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone
 
 EXPOSE 18080
 
-ENTRYPOINT java  -XX:+PrintFlagsFinal -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap $JAVA_OPTS -jar /$DIST_NAME.jar
+ENTRYPOINT java -javaagent:/skywalking-agent/skywalking-agent.jar \
+                -XX:+PrintFlagsFinal -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap $JAVA_OPTS -jar /$DIST_NAME.jar
