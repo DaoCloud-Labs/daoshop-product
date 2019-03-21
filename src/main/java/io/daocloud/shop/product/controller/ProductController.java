@@ -41,14 +41,14 @@ public class ProductController {
     }
     @PostMapping("/products/buy")
     @Transactional
-    public void buProduct(@RequestBody List<OrderVo> orderVoList){
+    public void buProduct(@RequestBody List<OrderVo> orderVoList,@RequestHeader("token") long token){
         orderVoList.forEach(orderVo->{
             ProductEntity productEntity = productRepository.findById(orderVo.getProductId()).get();
             orderVo.setPrice(productEntity.getPrice());
             orderVo.setProductName(productEntity.getName());
             updateProductCount(orderVo.getCount(),productEntity);
         });
-        orderService.createOrder(orderVoList);
+        orderService.createOrder(orderVoList,token);
     }
 
     private synchronized void  updateProductCount(int count,ProductEntity productEntity){
