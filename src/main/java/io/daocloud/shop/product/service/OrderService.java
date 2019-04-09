@@ -1,6 +1,8 @@
 package io.daocloud.shop.product.service;
 
 import io.daocloud.shop.product.controller.OrderVo;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
