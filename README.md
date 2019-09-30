@@ -2,7 +2,7 @@ daocloud-shop 商品服务
 ---
 
 ## 访问应用：
-在浏览器中输入：http://应用的容器或者宿主机ip:18080/s1/sleep/1k，其他接口参考如下：
+在浏览器中输入：http://应用的容器或者宿主机ip:18080/product/v1/s1/sleep/1k，其他接口参考如下：
 
 所有接口列表：
 - GET /s1/sleep/1k ，说明：该请求中`dmp.test.app.timeout`配置项的值，默认为100ms，并等待100ms，同时返回`dmp.test.app.timeout`和`dmp.test.app.rate`	的值。
