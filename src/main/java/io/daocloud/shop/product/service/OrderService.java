@@ -22,7 +22,7 @@ import java.util.List;
  * @project product
  */
 
-@FeignClient("daoshop-order")
+@FeignClient("daoshop-prod-daoshop-order")
 @RequestMapping("/order/v1")
 public interface OrderService {
 
